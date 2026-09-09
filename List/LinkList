@@ -1,0 +1,88 @@
+public class LinkList {
+    private int elem;
+    private int size;
+    private LinkList next;
+
+    public LinkList() {
+        this.next=null;
+        this.size=0;
+    }
+
+    public void linkInitiate() {
+        this.next = null; //相当与头节点
+        this.size = 0;
+    }
+
+    public int linkListSize() {
+        return this.size;
+    }
+
+    public boolean linkIsempty() {
+        return this.size == 0;
+    }
+
+    public void linkInsert(LinkList link, int loc, int n) throws RuntimeException{
+        //插入位置校验 考虑尾插法
+        if(loc<0||loc>link.size)
+            throw new RuntimeException("location insert Exception");
+
+
+        int j = 0;
+        LinkList current = link;
+        while (j < loc) {
+            current = current.next;
+            ++j;
+        }
+
+        LinkList s = new LinkList();
+        if(current.next!=null) {
+            s.next = current.next;
+        }
+        current.next=s;
+        s.elem=n;
+
+
+        link.size++;
+    }
+
+    public void linkDelete(LinkList link, int loc) {
+        //校验
+        if(link.linkIsempty()||loc>link.size)
+            throw new RuntimeException("delete location error");
+
+        int j = 0;
+        LinkList current = link;
+        while (j < loc) {
+            current = current.next;
+            ++j;
+        }
+        current.next = current.next.next;
+        link.size--;
+    }
+
+    public int getLink(LinkList link, int loc) {
+        //校验
+        if(loc<0||loc>link.size)
+            throw new RuntimeException("get location error");
+        int j = 0;
+        LinkList current = link;
+        while (j < loc) {
+            current = current.next;
+            ++j;
+        }
+        return current.next.elem;
+    }
+    public void clearLink(LinkList link) {
+            LinkList current=link;
+            while (current!=null)
+            {
+                LinkList temp=current;
+                current=current.next;
+                temp.next=null;
+                temp=current;
+            }
+
+            link.next=null;
+            link.size=0;
+    }
+}
